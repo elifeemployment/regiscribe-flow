@@ -3,21 +3,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Users, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-banner.jpg";
-
 const HeroSection = () => {
-  return (
-    <section className="relative min-h-[80vh] flex items-center">
+  return <section className="relative min-h-[80vh] flex items-center">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
-        <img 
-          src={heroImage} 
-          alt="Hero Background" 
-          className="w-full h-full object-cover"
-        />
+        <img src={heroImage} alt="Hero Background" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-primary opacity-85"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full bg-slate-800">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
             E-life Society Self Employment
@@ -75,8 +69,6 @@ const HeroSection = () => {
           </Card>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default HeroSection;
