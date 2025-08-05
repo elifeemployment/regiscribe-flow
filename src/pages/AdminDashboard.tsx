@@ -115,6 +115,37 @@ const AdminDashboard = () => {
     }
   ];
 
+  const panchayaths = [
+    { name: "Amarambalam", createdDate: "7/7/2025", updatedDate: "7/7/2025" },
+    { name: "Chaliyar", createdDate: "8/7/2025", updatedDate: "8/7/2025" },
+    { name: "Chokkad", createdDate: "7/7/2025", updatedDate: "7/7/2025" },
+    { name: "Chungathara", createdDate: "11/7/2025", updatedDate: "11/7/2025" },
+    { name: "Edapatta", createdDate: "7/7/2025", updatedDate: "7/7/2025" },
+    { name: "Edavanna", createdDate: "7/7/2025", updatedDate: "7/7/2025" }
+  ];
+
+  const announcements = [
+    { id: 1, title: "Welcome", status: "Active", message: "Welcome to our registration system", createdDate: "17/7/2025" },
+    { id: 2, title: "New Services", status: "Active", message: "New services are now available", createdDate: "17/7/2025" }
+  ];
+
+  const utilities = [
+    { 
+      id: 1, 
+      name: "സുമംതൊമോല് നി", 
+      url: "https://self-employ-final.vercel.app", 
+      description: "സുമോത്രാനാശാത്ത് ചുക്കു വാന്", 
+      status: true 
+    },
+    { 
+      id: 2, 
+      name: "എഞ്ചിനീയര്മാര് കുറിച്ച്", 
+      url: "https://nrega-task-app-2944.vercel.app", 
+      description: "വടാവിലി് ഇലെത്രറിന് എ", 
+      status: true 
+    }
+  ];
+
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "approved":
@@ -167,7 +198,10 @@ const AdminDashboard = () => {
 
         {/* Additional Navigation */}
         <div className="grid grid-cols-2 gap-4 mb-8">
-          <Card className="cursor-pointer hover:shadow-card transition-all duration-300">
+          <Card 
+            className="cursor-pointer hover:shadow-card transition-all duration-300"
+            onClick={() => setActiveTab("reports")}
+          >
             <CardContent className="p-6 text-center">
               <BarChart3 className="w-8 h-8 text-primary mx-auto mb-2" />
               <h3 className="font-medium text-foreground">Reports</h3>
@@ -334,6 +368,357 @@ const AdminDashboard = () => {
                     ))}
                   </tbody>
                 </table>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {activeTab === "panchayaths" && (
+          <Card className="shadow-card border-0">
+            <CardContent className="p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-xl font-semibold text-foreground">Panchayaths Management</h2>
+                <Button className="bg-primary hover:bg-primary-hover">
+                  + Add Panchayath
+                </Button>
+              </div>
+              <p className="text-muted-foreground mb-6">Malappuram District (24 Panchayaths)</p>
+
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="text-left p-3">Panchayath Name</th>
+                      <th className="text-left p-3">Created Date</th>
+                      <th className="text-left p-3">Updated Date</th>
+                      <th className="text-left p-3">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {panchayaths.map((panchayath, index) => (
+                      <tr key={index} className="border-b hover:bg-muted/50">
+                        <td className="p-3">{panchayath.name}</td>
+                        <td className="p-3">{panchayath.createdDate}</td>
+                        <td className="p-3">{panchayath.updatedDate}</td>
+                        <td className="p-3">
+                          <div className="flex space-x-2">
+                            <Button variant="ghost" size="sm">
+                              <Edit className="w-4 h-4" />
+                            </Button>
+                            <Button variant="ghost" size="sm">
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {activeTab === "announcements" && (
+          <Card className="shadow-card border-0">
+            <CardContent className="p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-xl font-semibold text-foreground">Announcements Management</h2>
+                <Button className="bg-primary hover:bg-primary-hover">
+                  + Add Announcement
+                </Button>
+              </div>
+
+              <div className="space-y-4">
+                {announcements.map((announcement) => (
+                  <Card key={announcement.id} className="bg-muted/20">
+                    <CardContent className="p-4">
+                      <div className="flex justify-between items-start">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-2">
+                            <h3 className="font-medium">{announcement.title}</h3>
+                            <Badge className="bg-success text-success-foreground text-xs">
+                              {announcement.status}
+                            </Badge>
+                          </div>
+                          <p className="text-muted-foreground mb-2">{announcement.message}</p>
+                          <p className="text-sm text-muted-foreground">Created: {announcement.createdDate}</p>
+                        </div>
+                        <div className="flex space-x-2">
+                          <Button variant="ghost" size="sm">
+                            <Edit className="w-4 h-4" />
+                          </Button>
+                          <Button variant="ghost" size="sm">
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {activeTab === "utilities" && (
+          <Card className="shadow-card border-0">
+            <CardContent className="p-6">
+              <div className="flex justify-between items-center mb-6">
+                <div>
+                  <h2 className="text-xl font-semibold text-foreground">Utilities Management</h2>
+                  <p className="text-muted-foreground">Manage website utilities that appear in the navigation dropdown</p>
+                </div>
+                <Button className="bg-primary hover:bg-primary-hover">
+                  + Add Utility
+                </Button>
+              </div>
+
+              <div className="bg-muted/20 p-4 rounded-lg mb-6">
+                <h3 className="font-medium mb-2">Utilities List</h3>
+                <p className="text-sm text-muted-foreground">All utilities that can appear in the navigation dropdown</p>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="text-left p-3">Name</th>
+                      <th className="text-left p-3">URL</th>
+                      <th className="text-left p-3">Description</th>
+                      <th className="text-left p-3">Status</th>
+                      <th className="text-left p-3">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {utilities.map((utility) => (
+                      <tr key={utility.id} className="border-b hover:bg-muted/50">
+                        <td className="p-3">{utility.name}</td>
+                        <td className="p-3 text-primary text-sm">{utility.url}</td>
+                        <td className="p-3">{utility.description}</td>
+                        <td className="p-3">
+                          <div className="flex items-center gap-2">
+                            <div className={`w-3 h-3 rounded-full ${utility.status ? 'bg-success' : 'bg-muted'}`}></div>
+                            <span className="text-sm">{utility.status ? 'Active' : 'Inactive'}</span>
+                          </div>
+                        </td>
+                        <td className="p-3">
+                          <div className="flex space-x-2">
+                            <Button variant="ghost" size="sm">
+                              <Edit className="w-4 h-4" />
+                            </Button>
+                            <Button variant="ghost" size="sm">
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {activeTab === "accounts" && (
+          <Card className="shadow-card border-0">
+            <CardContent className="p-6">
+              <h2 className="text-xl font-semibold text-foreground mb-6">Accounts Management</h2>
+              
+              {/* Cash Balance Cards */}
+              <div className="grid md:grid-cols-2 gap-6 mb-6">
+                <Card className="bg-success/10 border-success/20">
+                  <CardContent className="p-6">
+                    <div className="flex justify-between items-center mb-4">
+                      <h3 className="font-medium">Cash in Hand</h3>
+                      <Button variant="outline" size="sm">📊</Button>
+                    </div>
+                    <div className="text-2xl font-bold text-success mb-2">₹3900.00</div>
+                    <p className="text-sm text-muted-foreground">Available cash from collections</p>
+                    <p className="text-sm font-medium text-success mt-2">Total Fee Collected: ₹3900.00</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-primary/10 border-primary/20">
+                  <CardContent className="p-6">
+                    <div className="flex justify-between items-center mb-4">
+                      <h3 className="font-medium">Cash at Bank</h3>
+                      <Button variant="outline" size="sm">📊</Button>
+                    </div>
+                    <div className="text-2xl font-bold text-primary mb-2">₹0.00</div>
+                    <p className="text-sm text-muted-foreground">Transferred to bank</p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-4 mb-6">
+                <Button className="bg-primary">
+                  💰 Cash Transfer
+                </Button>
+                <Button variant="destructive">
+                  ➕ Add Expense
+                </Button>
+              </div>
+
+              {/* Transfer History Section */}
+              <div className="flex gap-4 mb-4">
+                <Button variant="outline" size="sm">Cash Transfers</Button>
+                <Button variant="outline" size="sm" className="bg-destructive text-destructive-foreground">Expenses</Button>
+              </div>
+
+              <div className="bg-muted/20 p-6 rounded-lg">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="font-medium">Cash Transfer History</h3>
+                  <div className="flex gap-2">
+                    <Button variant="outline" size="sm" className="bg-success text-success-foreground">
+                      📊 Excel
+                    </Button>
+                    <Button variant="outline" size="sm" className="bg-destructive text-destructive-foreground">
+                      📄 PDF
+                    </Button>
+                  </div>
+                </div>
+                
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="border-b">
+                        <th className="text-left p-3">Date</th>
+                        <th className="text-left p-3">Amount</th>
+                        <th className="text-left p-3">Period</th>
+                        <th className="text-left p-3">Remarks</th>
+                        <th className="text-left p-3">Created By</th>
+                        <th className="text-left p-3">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td colSpan={6} className="p-8 text-center text-muted-foreground">
+                          No cash transfers found
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {activeTab === "reports" && (
+          <Card className="shadow-card border-0">
+            <CardContent className="p-6">
+              <h2 className="text-xl font-semibold text-foreground mb-6">Reports</h2>
+              
+              {/* Date Range Filter */}
+              <div className="bg-muted/20 p-6 rounded-lg mb-6">
+                <h3 className="font-medium mb-4">Date Range Filter</h3>
+                <div className="grid md:grid-cols-4 gap-4 items-end">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">From:</label>
+                    <Input type="date" placeholder="Start Date" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">To:</label>
+                    <Input type="date" placeholder="End Date" />
+                  </div>
+                  <Button variant="outline">Hide Verification</Button>
+                  <Button variant="destructive">Clear</Button>
+                </div>
+                <p className="text-sm text-muted-foreground mt-4">
+                  Filters Total Registrations, Fee Collection, and Pending Amount
+                </p>
+              </div>
+
+              {/* Statistics Cards */}
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+                <Card className="text-center">
+                  <CardContent className="p-4">
+                    <div className="text-2xl font-bold">163</div>
+                    <p className="text-sm text-muted-foreground">Total Registrations</p>
+                    <p className="text-xs text-muted-foreground">All time</p>
+                  </CardContent>
+                </Card>
+                
+                <Card className="text-center">
+                  <CardContent className="p-4">
+                    <div className="text-2xl font-bold">7</div>
+                    <p className="text-sm text-muted-foreground">Total Categories</p>
+                    <p className="text-xs text-muted-foreground">Active</p>
+                  </CardContent>
+                </Card>
+                
+                <Card className="text-center">
+                  <CardContent className="p-4">
+                    <div className="text-2xl font-bold">24</div>
+                    <p className="text-sm text-muted-foreground">Total Panchayaths</p>
+                  </CardContent>
+                </Card>
+                
+                <Card className="bg-success/10 text-center">
+                  <CardContent className="p-4">
+                    <div className="text-2xl font-bold text-success">₹3,900</div>
+                    <p className="text-sm text-muted-foreground">Total Fees Collected</p>
+                    <p className="text-xs text-muted-foreground">All time revenue</p>
+                  </CardContent>
+                </Card>
+                
+                <Card className="bg-warning/10 text-center">
+                  <CardContent className="p-4">
+                    <div className="text-2xl font-bold text-warning">₹13,500</div>
+                    <p className="text-sm text-muted-foreground">Pending Amount</p>
+                    <p className="text-xs text-muted-foreground">From pending registrations</p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Performance Badge */}
+              <div className="flex justify-end mb-6">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm">Performance</span>
+                  <Badge className="bg-success text-success-foreground">Good</Badge>
+                  <span className="text-xs text-muted-foreground">Active registrations</span>
+                </div>
+              </div>
+
+              {/* Report Sections */}
+              <div className="space-y-4">
+                <Card className="bg-success/5 border-success/20 cursor-pointer hover:bg-success/10 transition-colors">
+                  <CardContent className="p-4">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h3 className="font-medium">Active Panchayath Report</h3>
+                        <p className="text-sm text-muted-foreground">Performance grading based on registrations and revenue collection</p>
+                      </div>
+                      <div className="text-xl">→</div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-primary/5 border-primary/20 cursor-pointer hover:bg-primary/10 transition-colors">
+                  <CardContent className="p-4">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h3 className="font-medium">Category Performance Report</h3>
+                        <p className="text-sm text-muted-foreground">Total fee collected and registration count for each category</p>
+                      </div>
+                      <div className="text-xl">→</div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-warning/5 border-warning/20 cursor-pointer hover:bg-warning/10 transition-colors">
+                  <CardContent className="p-4">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h3 className="font-medium">Panchayath Performance Report</h3>
+                      </div>
+                      <div className="text-xl">→</div>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             </CardContent>
           </Card>
